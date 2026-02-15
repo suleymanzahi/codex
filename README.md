@@ -17,8 +17,8 @@ source deploy.sh
 
 And browse to ```localhost:3000``` to go to the app.
 
-![](assests/demo.gif)
+![](assets/demo.gif)
 
 ## Architecture
 
-![Diagram](assests/diagram.svg)
+![Diagram](assets/diagram.svg)
