@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+@plugin 'flowbite/plugin';
+@source "../../node_modules/flowbite-svelte/dist";
+body {
+    background-color: #18181b;
+}
+

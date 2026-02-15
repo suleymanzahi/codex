@@ -1,0 +1,62 @@
+services:
+
+  queue:
+    container_name: rabbitmq
+    image: rabbitmq:3
+
+  database:
+    container_name: redis_db
+    image: redis:latest
+    restart: unless-stopped
+
+  pubsub:
+    container_name: redis_ps
+    image: redis:latest
+    restart: unless-stopped
+    depends_on:
+      - queue
+
+  worker:
+    build: worker
+    restart: unless-stopped
+    volumes:
+      - ./worker:/app
+    depends_on:
+      - pubsub
+      - queue
+
+  api:
+    build: api
+    restart: unless-stopped
+    volumes:
+      - ./api:/app
+    ports:
+      - 8000:8000
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      - database
+      - pubsub
+      - queue
+
+  client:
+    build: client
+    restart: unless-stopped
+    # stdin_open: true #apparently not needed anymore, kept just in case
+    volumes:
+      - ./client/src:/app/src
+    ports:
+      - 3000:3000
+    environment:
+      - PUBLIC_API_PORT=${PUBLIC_API_PORT}
+    depends_on:
+      - api
+
+      - worker
+
+
+  
+
+
+  
+

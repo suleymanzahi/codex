@@ -1,0 +1,5 @@
+fastapi[standard]
+argon2-cffi
+PyJWT
+pika
+redis
